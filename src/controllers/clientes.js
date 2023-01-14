@@ -32,24 +32,24 @@ const PrecargaClientes = async () => {
   try {
     await PrecargaVendedores();
 
-    // function returnId(nombre) {
-    //   if (nombre === "NELSON") return 5;
-    //   if (nombre === "BRIONES") return 2;
-    //   if (nombre === "CAMPOS") return 3;
-    //   if (nombre === "CHARLY") return 6;
-    //   if (nombre === "COSI") return 11;
-    //   if (nombre === "CRISTIAN") return 10;
-    //   if (nombre === "DEBIT") return 18;
-    //   if (nombre === "DIEGO") return 17;
-    //   if (nombre === "GUDI") return 8;
-    //   if (nombre === "LUIS") return 4;
-    //   if (nombre === "MATIAS") return 13;
-    //   if (nombre === "MOSTRADOR") return 14;
-    //   if (nombre === "ROGELIO") return 12;
-    //   if (nombre === "RUTA 81") return 15;
-    //   if (nombre === "WALTER") return 1;
-    //   if (nombre === "AGUARAY") return 16;
-    // }
+    function returnId(nombre) {
+      if (nombre === "NELSON") return 5;
+      if (nombre === "BRIONES") return 2;
+      if (nombre === "CAMPOS") return 3;
+      if (nombre === "CHARLY") return 6;
+      if (nombre === "COSI") return 11;
+      if (nombre === "CRISTIAN") return 10;
+      if (nombre === "DEBIT") return 18;
+      if (nombre === "DIEGO") return 17;
+      if (nombre === "GUDI") return 8;
+      if (nombre === "LUIS") return 4;
+      if (nombre === "MATIAS") return 13;
+      if (nombre === "MOSTRADOR") return 14;
+      if (nombre === "ROGELIO") return 12;
+      if (nombre === "RUTA 81") return 15;
+      if (nombre === "WALTER") return 1;
+      if (nombre === "AGUARAY") return 16;
+    }
 
     const arrayC = clientes.map((e) => {
       return {
@@ -77,7 +77,7 @@ const PrecargaClientes = async () => {
         fechaAlta: e.FechaAlta ? e.FechaAlta : "not found",
         email: e.email ? e.email : "not found",
         observaciones: e.Oservaciones ? e.Oservaciones : "sin observaciones",
-        // vendedorId: returnId(e.Vendedor),
+        vendedorId: returnId(e.Vendedor),
       };
     });
 
