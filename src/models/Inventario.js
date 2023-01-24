@@ -7,18 +7,22 @@ module.exports = (sequelize) => {
     "inventario",
     {
       id: {
+        //
         type: DataTypes.STRING,
         primaryKey: true,
       },
       descripcion: {
+        //
         type: DataTypes.STRING,
         allowNull: false,
       },
       rubro: {
+        //
         type: DataTypes.INTEGER,
         allowNull: true,
       },
       rubro2: {
+        //
         type: DataTypes.INTEGER,
         allowNull: true,
       },
@@ -27,6 +31,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       costo: {
+        //
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -35,6 +40,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       stockActual: {
+        //
         type: DataTypes.INTEGER,
         allowNull: true,
       },
@@ -47,7 +53,12 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       tipoStock: {
-        type: DataTypes.BOOLEAN,
+        //
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      imagen: {
+        type: DataTypes.STRING,
         allowNull: true,
       },
     },

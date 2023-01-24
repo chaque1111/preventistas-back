@@ -26,6 +26,8 @@ const PrecargaInventario = async () => {
       tasaBonif: e.TasaBonif ? e.TasaBonif : null,
       costoBonif: e.CostoBonif ? e.CostoBonif : null,
       tiposStock: e.Tipostock ? e.Tipostock : false,
+      imagen:
+        "https://img.freepik.com/fotos-premium/paquetes-productos-bolsa-compra-carrito-portatil-concepto-compras-entrega_38716-138.jpg?w=2000",
     };
   });
   await Inventario.bulkCreate(products);
@@ -58,6 +60,7 @@ const getAllProducts = async (req, res) => {
           porcentaje: e.porcentaje,
           costo: e.costo,
           stockActual: e.stockActual,
+          imagen: e.imagen,
         };
       });
       res.status(200).json(productsClean);
@@ -94,9 +97,71 @@ const searchProduct = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  try {
+    const {id} = req.params;
+    await Inventario.destroy({
+      where: {id: id},
+    });
+    console.log(id);
+    res.status(200).send("se borro el producto");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createProduct = async (req, res) => {
+  try {
+    const {id} = req.body;
+    const {descripcion} = req.body;
+    const {rubro} = req.body;
+    const {rubro2} = req.body;
+    const {costo} = req.body;
+    const {stockActual} = req.body;
+    const {tipoStock} = req.body;
+    const {imagen} = req.body;
+
+    if (
+      !id ||
+      !descripcion ||
+      !rubro ||
+      !rubro2 ||
+      !costo ||
+      !stockActual ||
+      !tipoStock ||
+      !imagen
+    ) {
+      res.status(200).send("faltan datos necesarios");
+    } else {
+      const hay = await Inventario.findByPk(id);
+      if (!hay) {
+        const producto = {
+          id,
+          descripcion,
+          rubro,
+          rubro2,
+          costo,
+          stockActual,
+          tipoStock,
+          imagen,
+        };
+        await Inventario.create(producto);
+
+        res.status(200).send("producto creado con éxito");
+      } else {
+        res.status(200).send("el producto con ese código ya existe");
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   PrecargaInventario,
   getAllProducts,
   getProductById,
   searchProduct,
+  deleteProduct,
+  createProduct,
 };

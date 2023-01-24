@@ -4,21 +4,27 @@ const fs = require("fs");
 const path = require("path");
 const {DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY = ""} = process.env;
 
-const sequelize = new Sequelize("postgres", "postgres", "Tsubasa1234", {
-  host: "db-preventistas.ccwb3jesmh0z.us-east-1.rds.amazonaws.com",
-  port: 5432,
-  logging: false,
-  maxConcurrentQueries: 100,
-  dialect: "postgres",
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-  pool: {maxConnections: 5, maxIdleTime: 30},
-  language: "en",
-});
+const sequelize =
+  DB_DEPLOY === ""
+    ? new Sequelize(
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_USER}`,
+        {logging: false, native: false}
+      )
+    : new Sequelize("postgres", "postgres", "Tsubasa1234", {
+        host: "db-preventistas.ccwb3jesmh0z.us-east-1.rds.amazonaws.com",
+        port: 5432,
+        logging: false,
+        maxConcurrentQueries: 100,
+        dialect: "postgres",
+        dialectOptions: {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        },
+        pool: {maxConnections: 5, maxIdleTime: 30},
+        language: "en",
+      });
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
