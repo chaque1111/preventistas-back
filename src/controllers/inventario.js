@@ -128,8 +128,7 @@ const createProduct = async (req, res) => {
       !rubro2 ||
       !costo ||
       !stockActual ||
-      !tipoStock ||
-      !imagen
+      !tipoStock
     ) {
       res.status(200).send("faltan datos necesarios");
     } else {
@@ -143,7 +142,9 @@ const createProduct = async (req, res) => {
           costo,
           stockActual,
           tipoStock,
-          imagen,
+          imagen:
+            imagen ||
+            "https://img.freepik.com/fotos-premium/paquetes-productos-bolsa-compra-carrito-portatil-concepto-compras-entrega_38716-138.jpg?w=2000",
         };
         await Inventario.create(producto);
 
