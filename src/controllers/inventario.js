@@ -27,7 +27,7 @@ const PrecargaInventario = async () => {
       costoBonif: e.CostoBonif ? e.CostoBonif : null,
       tiposStock: e.Tipostock ? e.Tipostock : false,
       imagen:
-        "https://img.freepik.com/fotos-premium/paquetes-productos-bolsa-compra-carrito-portatil-concepto-compras-entrega_38716-138.jpg?w=2000",
+        "https://res.cloudinary.com/dw83apcj7/image/upload/v1675206685/pruductIcon_ltjnru.svg",
     };
   });
   await Inventario.bulkCreate(products);
@@ -144,7 +144,7 @@ const createProduct = async (req, res) => {
           tipoStock,
           imagen:
             imagen ||
-            "https://img.freepik.com/fotos-premium/paquetes-productos-bolsa-compra-carrito-portatil-concepto-compras-entrega_38716-138.jpg?w=2000",
+            "https://res.cloudinary.com/dw83apcj7/image/upload/v1675206685/pruductIcon_ltjnru.svg",
         };
         await Inventario.create(producto);
 
