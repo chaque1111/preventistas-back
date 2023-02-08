@@ -43,13 +43,10 @@ const PrecargaVendedores = async () => {
       password: "12345t",
     };
   });
-  await Vendedor.bulkCreate(vendedores);
-  // for (let i = 0; i < vendedores.length; i++) {
-  //   const hay = await Vendedor.findOne({where: {id: vendedores[i].id}});
-  //   if (!hay) {
-  //     Vendedor.create(vendedores[i]);
-  //   }
-  // }
+  // await Vendedor.bulkCreate(vendedores);
+  for (let i = 0; i < vendedores.length; i++) {
+    await Vendedor.findOrCreate({where: {id: vendedores[i].id}});
+  }
 };
 
 const getAllVendedores = async (req, res) => {

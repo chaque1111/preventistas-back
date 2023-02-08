@@ -81,7 +81,10 @@ const PrecargaClientes = async () => {
       };
     });
 
-    await Cliente.bulkCreate(arrayC);
+    // await Cliente.bulkCreate(arrayC);
+    for (let i = 0; i < arrayC; i++) {
+      await Cliente.findOrCreate({where: {id: arrayC[i].id}});
+    }
   } catch (e) {
     console.log(e);
   }

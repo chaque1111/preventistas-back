@@ -30,13 +30,10 @@ const PrecargaInventario = async () => {
         "https://res.cloudinary.com/dw83apcj7/image/upload/v1675206685/pruductIcon_ltjnru.svg",
     };
   });
-  await Inventario.bulkCreate(products);
-  // for (let i = 0; i < products.length; i++) {
-  //   const hay = await Inventario.findOne({where: {id: products[i].id}});
-  //   if (!hay) {
-  //     Inventario.create(products[i]);
-  //   }
-  // }
+  // await Inventario.bulkCreate(products);
+  for (let i = 0; i < products.length; i++) {
+    await Inventario.findOrCreate({where: {id: products[i].id}});
+  }
 };
 
 const getAllProducts = async (req, res) => {
