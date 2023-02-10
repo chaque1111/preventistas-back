@@ -25,14 +25,17 @@ const PrecargaInventario = async () => {
       stockActual: e.StockActual ? e.StockActual : null,
       tasaBonif: e.TasaBonif ? e.TasaBonif : null,
       costoBonif: e.CostoBonif ? e.CostoBonif : null,
-      tiposStock: e.Tipostock ? e.Tipostock : false,
+      tipoStock: e.Tipostock ? e.Tipostock : false,
       imagen:
         "https://res.cloudinary.com/dw83apcj7/image/upload/v1675206685/pruductIcon_ltjnru.svg",
     };
   });
-  // await Inventario.bulkCreate(products);
+
   for (let i = 0; i < products.length; i++) {
-    await Inventario.findOrCreate({where: {id: products[i].id}});
+    await Inventario.findOrCreate({
+      where: {id: products[i].id},
+      defaults: {...products[i]},
+    });
   }
 };
 

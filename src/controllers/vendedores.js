@@ -45,7 +45,10 @@ const PrecargaVendedores = async () => {
   });
   // await Vendedor.bulkCreate(vendedores);
   for (let i = 0; i < vendedores.length; i++) {
-    await Vendedor.findOrCreate({where: {id: vendedores[i].id}});
+    await Vendedor.findOrCreate({
+      where: {id: vendedores[i].id},
+      defaults: {...vendedores[i]},
+    });
   }
 };
 
@@ -96,9 +99,18 @@ const logIng = async (req, res) => {
   }
 };
 
+const putAdmin = async (req, res) => {
+  const {id} = req.params;
+  const vendedor = await Vendedor.findByPk(id);
+  vendedor.admin = !vendedor.admin ? true : false;
+  vendedor.save();
+  res.status(200).send(vendedor);
+};
+
 module.exports = {
   PrecargaVendedores,
   getAllVendedores,
   getVendedorById,
   logIng,
+  putAdmin,
 };
