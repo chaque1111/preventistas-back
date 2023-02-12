@@ -114,7 +114,7 @@ const putNumberOrder = async (req, res) => {
     const newNumber = req.params.number;
     const order = await Variable.findByPk(1);
     order.nroPedido = newNumber;
-    order.save();
+    await order.save();
     res.status(200).json(order);
   } catch (error) {
     res.status(404).send(error);
