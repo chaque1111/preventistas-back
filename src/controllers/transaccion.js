@@ -1,10 +1,4 @@
-const {
-  Transaccion,
-  Variable,
-  Vendedor,
-  Cliente,
-  Inventario,
-} = require('../db');
+const {Transaccion, Variable, Vendedor, Cliente, Inventario} = require("../db");
 
 const createTransaction = async (req, res) => {
   try {
@@ -49,8 +43,8 @@ const createTransaction = async (req, res) => {
 const createVariable = async () => {
   try {
     await Variable.findOrCreate({
-      where: { id: 1 },
-      defaults: { id: 1, nroPedido: 1 },
+      where: {id: 1},
+      defaults: {id: 1, nroPedido: 1},
     });
   } catch (e) {
     console.log(e);
@@ -86,7 +80,7 @@ const getOrder = async (req, res) => {
 
 const getOrderByNumber = async (req, res) => {
   try {
-    let { numberOrder } = req.params;
+    let {numberOrder} = req.params;
     const order = await Transaccion.findAll({
       where: {
         orderNumber: numberOrder,
@@ -100,7 +94,7 @@ const getOrderByNumber = async (req, res) => {
 
 const getOrderById = async (req, res) => {
   try {
-    let { id } = req.params;
+    let {id} = req.params;
     const order = await Transaccion.findAll({
       where: {
         id: id,

@@ -17,15 +17,15 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { PrecargaClientes } = require('./src/controllers/clientes.js');
-const { PrecargaInventario } = require('./src/controllers/inventario.js');
-const { createVariable } = require('./src/controllers/transaccion.js');
+const server = require("./src/app.js");
+const {PrecargaClientes} = require("./src/controllers/clientes.js");
+const {PrecargaInventario} = require("./src/controllers/inventario.js");
+const {createVariable} = require("./src/controllers/transaccion.js");
 
-const { conn } = require('./src/db.js');
+const {conn} = require("./src/db.js");
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({force: false}).then(() => {
   server.listen(8080, () => {
     PrecargaInventario();
     PrecargaClientes();
