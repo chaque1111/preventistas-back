@@ -1,9 +1,9 @@
-const {DATE, where} = require("sequelize");
-const XLSX = require("xlsx");
-const {Cliente, Vendedor} = require("../db");
-const {PrecargaVendedores} = require("./vendedores");
+const { DATE, where } = require('sequelize');
+const XLSX = require('xlsx');
+const { Cliente, Vendedor } = require('../db');
+const { PrecargaVendedores } = require('./vendedores');
 
-const FILE_CLIENTES = "./Clientes.xlsx";
+const FILE_CLIENTES = './Clientes.xlsx';
 
 const readOpts = {
   // <--- need these settings in readFile options
@@ -12,7 +12,7 @@ const readOpts = {
 };
 const jsonOpts = {
   header: 1,
-  defval: "",
+  defval: '',
   blankrows: true,
   raw: false,
   dateNF: 'd"/"m"/"yyyy', // <--- need dateNF in sheet_to_json options (note the escape chars)
@@ -33,60 +33,60 @@ const PrecargaClientes = async () => {
     await PrecargaVendedores();
 
     function returnId(nombre) {
-      if (nombre === "NELSON") return 5;
-      if (nombre === "BRIONES") return 2;
-      if (nombre === "CAMPOS") return 3;
-      if (nombre === "CHARLY") return 6;
-      if (nombre === "COSI") return 11;
-      if (nombre === "CRISTIAN") return 10;
-      if (nombre === "DEBIT") return 18;
-      if (nombre === "DIEGO") return 17;
-      if (nombre === "GUDI") return 8;
-      if (nombre === "LUIS") return 4;
-      if (nombre === "MATIAS") return 13;
-      if (nombre === "MOSTRADOR") return 14;
-      if (nombre === "ROGELIO") return 12;
-      if (nombre === "RUTA 81") return 15;
-      if (nombre === "WALTER") return 1;
-      if (nombre === "AGUARAY") return 16;
+      if (nombre === 'NELSON') return 5;
+      if (nombre === 'BRIONES') return 2;
+      if (nombre === 'CAMPOS') return 3;
+      if (nombre === 'CHARLY') return 6;
+      if (nombre === 'COSI') return 11;
+      if (nombre === 'CRISTIAN') return 10;
+      if (nombre === 'DEBIT') return 18;
+      if (nombre === 'DIEGO') return 17;
+      if (nombre === 'GUDI') return 8;
+      if (nombre === 'LUIS') return 4;
+      if (nombre === 'MATIAS') return 13;
+      if (nombre === 'MOSTRADOR') return 14;
+      if (nombre === 'ROGELIO') return 12;
+      if (nombre === 'RUTA 81') return 15;
+      if (nombre === 'WALTER') return 1;
+      if (nombre === 'AGUARAY') return 16;
     }
 
     const arrayC = clientes.map((e) => {
       return {
         id: e.Codigo,
-        name: e.NomFant ? e.NomFant : "not found",
-        rzsocial: e.RzSocial ? e.RzSocial : "not found",
+        name: e.NomFant ? e.NomFant : 'not found',
+        rzsocial: e.RzSocial ? e.RzSocial : 'not found',
         localidad: e.Localidad,
-        direccion: e["Dirección"] ? e["Dirección"] : null,
+        direccion: e['Dirección'] ? e['Dirección'] : null,
         provincia: e.Provincia,
         pais: e.País,
-        zona: e["CódigoPostal"] ? e["CódigoPostal"] : "not found",
-        whatsapp: e.Tel ? e.Tel : "not found",
-        tipoDocumento: e["Tipo de Documento"]
-          ? e["Tipo de Documento"]
-          : "not found",
-        numDocument: e["Número"] ? e["Número"] : "not found",
-        condicionIva: e["Condición Frente al IVA"],
-        categoria: e["Categoría"] ? e["Categoría"] : "not found",
+        zona: e['CódigoPostal'] ? e['CódigoPostal'] : 'not found',
+        whatsapp: e.Tel ? e.Tel : 'not found',
+        tipoDocumento: e['Tipo de Documento']
+          ? e['Tipo de Documento']
+          : 'not found',
+        numDocument: e['Número'] ? e['Número'] : 'not found',
+        condicionIva: e['Condición Frente al IVA'],
+        categoria: e['Categoría'] ? e['Categoría'] : 'not found',
         nombreVendedor: e.Vendedor,
         // saldo: e.Saldo,
-        contacto: e.Contacto ? e.Contacto : "not found",
-        listaPrecios: e.ListaPrecios ? e.ListaPrecios : "not found",
+        contacto: e.Contacto ? e.Contacto : 'not found',
+        listaPrecios: e.ListaPrecios ? e.ListaPrecios : 'not found',
         activo: e.Activo === true ? e.Activo : false,
         fechaUC: e.FechaUC ? e.FechaUC : new DATE(),
-        fechaAlta: e.FechaAlta ? e.FechaAlta : "not found",
-        email: e.email ? e.email : "not found",
-        observaciones: e.Oservaciones ? e.Oservaciones : "sin observaciones",
+        fechaAlta: e.FechaAlta ? e.FechaAlta : 'not found',
+        email: e.email ? e.email : 'not found',
+        observaciones: e.Oservaciones ? e.Oservaciones : 'sin observaciones',
         vendedorId: returnId(e.Vendedor),
       };
     });
 
     // await Cliente.bulkCreate(arrayC);
-    for (let i = 0; i < arrayC; i++) {
+    for (let i = 0; i < arrayC.length; i++) {
       // await Cliente.findOrCreate({where: {id: arrayC[i].id}});
       await Cliente.findOrCreate({
-        where: {id: arrayC[i].id},
-        defaults: {...arrayC[i]},
+        where: { id: arrayC[i].id },
+        defaults: { ...arrayC[i] },
       });
     }
   } catch (e) {
@@ -96,8 +96,8 @@ const PrecargaClientes = async () => {
 
 const getAllClients = async (req, res) => {
   try {
-    const {name} = req.query;
-    const clientes = await Cliente.findAll({include: Vendedor});
+    const { name } = req.query;
+    const clientes = await Cliente.findAll({ include: Vendedor });
     const clientesMap = clientes.map((e) => {
       return {
         cliente: {
@@ -113,7 +113,7 @@ const getAllClients = async (req, res) => {
       };
     });
     if (name) {
-      const {name} = req.query;
+      const { name } = req.query;
       const clientesFilter = clientesMap.filter((e) =>
         e.name.toUpperCase().includes(name.toUpperCase())
       );
@@ -128,8 +128,8 @@ const getAllClients = async (req, res) => {
 
 const getClientById = async (req, res) => {
   try {
-    let {id} = req.params;
-    const cliente = await Cliente.findByPk(id, {include: Vendedor});
+    let { id } = req.params;
+    const cliente = await Cliente.findByPk(id, { include: Vendedor });
     res.status(200).json(cliente);
   } catch (e) {
     res.status(404).send(e);
@@ -140,7 +140,7 @@ let Clientes;
 const getClientBySeller = async (req, res) => {
   try {
     const id = req.params.id;
-    const vendedor = await Vendedor.findByPk(id, {include: Cliente});
+    const vendedor = await Vendedor.findByPk(id, { include: Cliente });
     Clientes = vendedor.clientes.map((e) => {
       return {
         id: e.id,
@@ -165,7 +165,7 @@ const searchClientsBySeller = async (req, res) => {
   try {
     const sellerId = req.body.id;
     const nameClient = req.body.name;
-    const vendedor = await Vendedor.findByPk(sellerId, {include: Cliente});
+    const vendedor = await Vendedor.findByPk(sellerId, { include: Cliente });
     let arrayClientes = vendedor.clientes;
     arrayClientes = arrayClientes.filter((e) =>
       e.name.toUpperCase().includes(nameClient.toUpperCase())
@@ -189,7 +189,7 @@ const searchClientsBySeller = async (req, res) => {
       ? res.status(200).json(Clientes)
       : res
           .status(400)
-          .send("no se encontraron clientes con esas características");
+          .send('no se encontraron clientes con esas características');
   } catch (error) {
     res.status(400).send(error);
   }
@@ -202,16 +202,16 @@ const filterClients = async (req, res) => {
     const localidad = req.body.localidad;
     console.log(localidad, activo);
 
-    if (activo !== "") {
+    if (activo !== '') {
       CopyClients = CopyClients.filter((e) => e.activo.toString() === activo);
     }
-    if (localidad !== "") {
+    if (localidad !== '') {
       CopyClients = CopyClients.filter((e) => e.localidad === localidad);
     }
 
     CopyClients.length
       ? res.status(200).send(CopyClients)
-      : res.status(400).send("no se encontraron coincidencias");
+      : res.status(400).send('no se encontraron coincidencias');
   } catch (e) {
     res.status(400).send(e);
   }
@@ -220,16 +220,16 @@ const filterClients = async (req, res) => {
 const getLocalidades = async (req, res) => {
   try {
     const id = req.params.id;
-    const vendedor = await Vendedor.findByPk(id, {include: Cliente});
+    const vendedor = await Vendedor.findByPk(id, { include: Cliente });
     if (vendedor) {
       const clientes = vendedor.clientes;
       const localidades = [];
       clientes.map((e) =>
-        !localidades.includes(e.localidad) ? localidades.push(e.localidad) : ""
+        !localidades.includes(e.localidad) ? localidades.push(e.localidad) : ''
       );
       res.status(200).json(localidades);
     } else {
-      res.status(200).json("no existe el vendedor");
+      res.status(200).json('no existe el vendedor');
     }
   } catch (error) {
     res.send(error);
