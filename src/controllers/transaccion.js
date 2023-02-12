@@ -48,7 +48,10 @@ const createTransaction = async (req, res) => {
 
 const createVariable = async () => {
   try {
-    await Variable.create();
+    await Variable.findOrCreate({
+      where: { id: 1 },
+      defaults: { id: 1, nroPedido: 1 },
+    });
   } catch (e) {
     console.log(e);
   }

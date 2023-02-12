@@ -7,10 +7,11 @@ module.exports = (sequelize) => {
   sequelize.define(
     'Variable',
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-      },
+      // id: {
+      //   type: DataTypes.INTEGER,
+      //   primaryKey: true,
+      //   defaultValue: 1,
+      // },
       nroPedido: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
