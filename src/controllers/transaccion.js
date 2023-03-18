@@ -16,6 +16,7 @@ const createTransaction = async (req, res) => {
       costo,
       cantidad,
       subTotal,
+      costoTotalPedido,
       fecha,
       observacion,
       orderNumber,
@@ -28,6 +29,7 @@ const createTransaction = async (req, res) => {
       costo,
       cantidad,
       subTotal,
+      costoTotalPedido,
       fecha,
       observacion,
       orderNumber,
@@ -70,11 +72,15 @@ const getOrder = async (req, res) => {
     const allOrder = await Transaccion.findAll();
     const order = allOrder.map((e) => {
       return {
+        id: e.id,
         vendedorId: e.vendedorId,
         clienteId: e.clienteId,
         inventarioId: e.inventarioId,
         descripcion: e.descripcion,
+        costo: e.costo,
         cantidad: e.cantidad,
+        subTotal: e.subTotal,
+        fecha: e.fecha,
         orderNumber: e.orderNumber,
       };
     });
