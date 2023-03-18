@@ -25,7 +25,11 @@ const { createVariable } = require('./src/controllers/transaccion.js');
 const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
+<<<<<<< HEAD
 conn.sync({ force: false }).then(() => {
+=======
+conn.sync({force: true}).then(() => {
+>>>>>>> main
   server.listen(8080, () => {
     PrecargaInventario();
     PrecargaClientes();
