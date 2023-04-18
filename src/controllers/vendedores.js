@@ -54,7 +54,7 @@ const PrecargaVendedores = async () => {
 
 const getAllVendedores = async (req, res) => {
   try {
-    const {name} = req.query;
+    const {name} = req.params;
     const vendedores = await Vendedor.findAll();
     if (name) {
       const vendedorByName = vendedores.filter((e) =>
@@ -74,13 +74,23 @@ const getAllVendedores = async (req, res) => {
 const getVendedorById = async (req, res) => {
   try {
     const found = await Vendedor.findByPk(req.params.id, {include: Cliente});
-    console.log(found);
+
     if (!found) {
       return res.status(404).send("el vendedor no existe");
     }
     return res.status(200).json(found);
   } catch (error) {
     res.status(400).send(error);
+  }
+};
+
+const getSellerDetail = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const seller = await Vendedor.findByPk(id);
+    res.status(200).send(seller);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -109,6 +119,7 @@ const putAdmin = async (req, res) => {
 
 module.exports = {
   PrecargaVendedores,
+  getSellerDetail,
   getAllVendedores,
   getVendedorById,
   logIng,
